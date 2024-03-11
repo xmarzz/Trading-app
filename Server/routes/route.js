@@ -20,6 +20,6 @@ route.post('/signup',async (req, res)=>{
 
         return res.status(200).json({msg: "signup successfull"})
     }catch(error){
-        return response.status(500)
+        return response.status(500).json({msg: 'error while signup the user'})
     }
 })

@@ -1,11 +1,11 @@
 import axios from 'axios'
 import { API_NOTIFICATION_MESSAGES, SERVICE_URL } from '../constrains/config'
 
-const API_URL='https://localhost:8080/'
+const API_URL='http://localhost:8080/'
 
 
 const axiosInstance=axios.create({
-    baseUrl : API_URL,
+    baseURL : API_URL,
     timeout: 10000,
     headers:{
         "content-type" : "application/json"
@@ -52,16 +52,22 @@ const processError=(error)=>{
         }
 
     }else if(error.request){
-        console.log('ERROR IN RESPONSE', error.errortoJSON())
+        console.log('ERROR IN RESPONSE', error.toJSON())
         return{
             isError: true,
             msg: API_NOTIFICATION_MESSAGES,
-            code : ""
+            code : error.response.status
         }
     }else{
-
+        console.log('error in network : ', error.toJSON())
+        return{
+            isError : true,
+            msg : API_NOTIFICATION_MESSAGES,
+            code : error.response.status 
+        }
     }
 }
+
 
 const API= {}
 
